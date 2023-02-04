@@ -95,13 +95,15 @@ def merge_videos(clip_list, output_name, render_settings):
         clip_list.append(
             VideoFileClip(render_settings['outro_path'], target_resolution=render_settings["target_resolution"]))
 
+    print(f"Merging video files")
     merged_video = concatenate_videoclips(clip_list, method="compose")
     temp_dir_path = get_temp_dir()
-    print(f"Writing video file to {output_name}.mp4")
-
-#trying to crop the video file
+    
+    #trying to crop the video file
+    print(f"Cropping the merged video file")
     cropped_merged_video = crop(merged_video, x1=656, width=607)
 
+    print(f"Writing croped and merged video file to {output_name}.mp4")
     cropped_merged_video.write_videofile(
         f"{output_name}.mp4",
         codec="libx264",
