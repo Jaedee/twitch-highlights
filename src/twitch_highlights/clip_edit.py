@@ -98,6 +98,9 @@ def merge_videos(clip_list, output_name, render_settings):
     temp_dir_path = get_temp_dir()
     print(f"Writing video file to {output_name}.mp4")
 
+#trying to crop the video file
+    merged_video.crop(clip, x1=656, width=607)
+
     merged_video.write_videofile(
         f"{output_name}.mp4",
         codec="libx264",
