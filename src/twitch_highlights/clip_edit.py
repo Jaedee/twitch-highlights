@@ -8,7 +8,8 @@ import requests
 import os
 import shutil
 from . import acr_cloud
-
+#import crop from moviepy
+from moviepy.video.fx.all import crop
 
 def sort_clips_chronologically(clips):
     clips.sort(key=lambda k: k["created_at"])
@@ -99,9 +100,9 @@ def merge_videos(clip_list, output_name, render_settings):
     print(f"Writing video file to {output_name}.mp4")
 
 #trying to crop the video file
-    merged_video.crop(clip, x1=656, width=607)
+    cropped_merged_video = crop(merged_video, x1=656, width=607)
 
-    merged_video.write_videofile(
+    cropped_merged_video.write_videofile(
         f"{output_name}.mp4",
         codec="libx264",
         fps=render_settings['fps'],
@@ -111,6 +112,7 @@ def merge_videos(clip_list, output_name, render_settings):
         logger=proglog.TqdmProgressBarLogger(print_messages=False))
 
     merged_video.close()
+    cropped_merged_video.close()
     for clip in clip_list:
         clip.close()
 
